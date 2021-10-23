@@ -40,6 +40,7 @@ namespace DeckMaker
 
         private void InitUnit()
         {
+        
             foreach (var obj in (FactionType[])Enum.GetValues(typeof(FactionType)))
             {
                 Dictionary<UnitType, List<UnitData>> dataDic = new Dictionary<UnitType, List<UnitData>>();
@@ -50,11 +51,11 @@ namespace DeckMaker
                     dataDic.Add(unit, new List<UnitData>());
                 }
             }
+        
 
 
             var workbook = GetWorkbook("list.xlsx", ".xlsx");
             ISheet sheet = workbook.GetSheetAt(0);
-
             try
             {
                 for (int i = 1; i <= sheet.LastRowNum; i++)
