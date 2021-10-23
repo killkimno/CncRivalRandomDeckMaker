@@ -12,28 +12,29 @@ namespace DeckMaker
 {
     public partial class CompFixedUnit : UserControl
     {
-        public GlobalDefine.UnitType UnitType;
-        public int Count { get; private set; }
+        public UnitType UnitType;
+        public int Count { get { return _count; } }
+        private int _count;
         public CompFixedUnit()
         {
             InitializeComponent();
         }
 
-        public void Init(GlobalDefine.UnitType unitType)
+        public void Init(UnitType unitType)
         {
             UnitType = unitType;
 
             switch(unitType)
             {
-                case GlobalDefine.UnitType.Air:
+                case UnitType.Air:
                     lbUnitType.Text = "고정 공중 유닛";
                     break;
 
-                case GlobalDefine.UnitType.Tank:
+                case UnitType.Factory:
                     lbUnitType.Text = "고정 차량 유닛";
                     break;
 
-                case GlobalDefine.UnitType.infantry:
+                case UnitType.Barrack:
                     lbUnitType.Text = "고정 보병 유닛";
                     break;
             }
@@ -44,17 +45,19 @@ namespace DeckMaker
             try
             {
                 int result = Convert.ToInt32(tbValue.Text);
-                result = Count;
+              
 
                 if(result < 0)
                 {
                     result = 0;
                   
                 }
+                _count = result;
 
             }
             catch
             {
+                _count = 2;
             }
         }
     }
