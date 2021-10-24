@@ -9,7 +9,7 @@ namespace DeckMaker
 {
     public enum UnitType
     {
-        Air = 0, Factory, Barrack, Commander, Tech
+        Barrack = 0, Factory, Air,  Tech, Commander
     }
 
     public enum FactionType
@@ -20,6 +20,7 @@ namespace DeckMaker
     public class EntryData
     {
         public string Name;
+        public UnitData Commander;
         public List<UnitData> UnitList = new List<UnitData>();
 
         public override string ToString()

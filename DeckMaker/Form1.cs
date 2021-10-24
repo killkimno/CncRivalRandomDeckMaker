@@ -141,7 +141,7 @@ namespace DeckMaker
             //사령관
             int count = _unitDic[faction][UnitType.Commander].Count;
             UnitData commander = _unitDic[faction][UnitType.Commander][random.Next(count)];
-
+            entry.Commander = commander;
             //유닛
             //일단 다 합친다
             List<UnitData> list = _unitDic[faction][UnitType.Air].Concat(_unitDic[faction][UnitType.Tech].Concat(_unitDic[faction][UnitType.Barrack].
@@ -330,6 +330,16 @@ namespace DeckMaker
         {
             MakeDeck();
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+
+                System.Diagnostics.Process.Start(e.Link.LinkData as string);
+            }
+            catch { }
+        }
     }
 
     public static class RichTextBoxExtensions
@@ -349,8 +359,8 @@ namespace DeckMaker
         {
             entry.UnitList.Sort(new SortByTpye());
             box.AppendText(entry.Name + " : ", Color.Black );
-            
-            foreach(var obj in entry.UnitList)
+            box.AppendText($"[{entry.Commander.KrName}]  / ", Color.DarkRed);
+            foreach (var obj in entry.UnitList)
             {
                 box.AppendText($" {obj.KrName} /", obj.GetTextClor());
             }

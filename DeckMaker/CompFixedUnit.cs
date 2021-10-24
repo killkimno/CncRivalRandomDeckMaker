@@ -27,15 +27,15 @@ namespace DeckMaker
             switch(unitType)
             {
                 case UnitType.Air:
-                    lbUnitType.Text = "고정 공중 유닛";
+                    lbUnitType.Text = "고정 대공 유닛";
                     break;
 
                 case UnitType.Factory:
-                    lbUnitType.Text = "고정 차량 유닛";
+                    lbUnitType.Text = "고정 대차량 유닛";
                     break;
 
                 case UnitType.Barrack:
-                    lbUnitType.Text = "고정 보병 유닛";
+                    lbUnitType.Text = "고정 대보병 유닛";
                     break;
             }
 
