@@ -9,7 +9,7 @@ namespace DeckMaker
 {
     public enum UnitType
     {
-        Air, Factory, Barrack, Commander, Tech
+        Air = 0, Factory, Barrack, Commander, Tech
     }
 
     public enum FactionType
@@ -38,16 +38,25 @@ namespace DeckMaker
 
     }
 
+    public class SortByTpye : IComparer<UnitData>
+    {
+        public int Compare(UnitData first, UnitData second)
+        {
+            int value1 =(int) first.UnitType;
+            int value2 = (int)second.UnitType;
+            return value1.CompareTo(value2);
+        }
+    }
     public class UnitData
     {
         public string EnName;
         public string KrName;
-        public int Tier;
+        public int Cost;
         public UnitType UnitType;
         public FactionType FactionType;
-        public bool IsAllowAir;
-        public bool IsAllowTank;
-        public bool IsAllowInfantry;
+        public int AntiAir;
+        public int AntiTank;
+        public int AntiInfan;
 
         public Color GetTextClor()
         {

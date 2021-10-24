@@ -57,7 +57,7 @@ namespace DeckMaker
             }
             catch
             {
-                _count = 2;
+                _count = 1;
             }
         }
     }

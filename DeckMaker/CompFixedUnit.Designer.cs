@@ -52,7 +52,7 @@ namespace DeckMaker
             this.tbValue.Name = "tbValue";
             this.tbValue.Size = new System.Drawing.Size(91, 23);
             this.tbValue.TabIndex = 1;
-            this.tbValue.Text = "2";
+            this.tbValue.Text = "1";
             this.tbValue.TextChanged += new System.EventHandler(this.tbValue_TextChanged);
             // 
             // label1

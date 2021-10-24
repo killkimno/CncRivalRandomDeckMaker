@@ -30,51 +30,52 @@ namespace DeckMaker
         private void InitializeComponent()
         {
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.compFixedUnit1 = new DeckMaker.CompFixedUnit();
-            this.compFixedUnit2 = new DeckMaker.CompFixedUnit();
-            this.compFixedUnit3 = new DeckMaker.CompFixedUnit();
+            this.compFixedAirUnit = new DeckMaker.CompFixedUnit();
+            this.compFixedTankUnit = new DeckMaker.CompFixedUnit();
+            this.compFixedInfanUnit = new DeckMaker.CompFixedUnit();
             this.lbEntry = new System.Windows.Forms.Label();
             this.tbEntry = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rbNod = new System.Windows.Forms.RadioButton();
+            this.rbGDI = new System.Windows.Forms.RadioButton();
+            this.rbAll = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // richTextBox1
             // 
             this.richTextBox1.BackColor = System.Drawing.Color.Beige;
-            this.richTextBox1.Location = new System.Drawing.Point(12, 312);
+            this.richTextBox1.Location = new System.Drawing.Point(13, 322);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richTextBox1.Size = new System.Drawing.Size(994, 149);
+            this.richTextBox1.Size = new System.Drawing.Size(1022, 273);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
             // 
-            // compFixedUnit1
+            // compFixedAirUnit
             // 
-            this.compFixedUnit1.Location = new System.Drawing.Point(13, 63);
-            this.compFixedUnit1.Name = "compFixedUnit1";
-            this.compFixedUnit1.Size = new System.Drawing.Size(150, 75);
-            this.compFixedUnit1.TabIndex = 3;
+            this.compFixedAirUnit.Location = new System.Drawing.Point(13, 63);
+            this.compFixedAirUnit.Name = "compFixedAirUnit";
+            this.compFixedAirUnit.Size = new System.Drawing.Size(150, 75);
+            this.compFixedAirUnit.TabIndex = 3;
             // 
-            // compFixedUnit2
+            // compFixedTankUnit
             // 
-            this.compFixedUnit2.Location = new System.Drawing.Point(178, 63);
-            this.compFixedUnit2.Name = "compFixedUnit2";
-            this.compFixedUnit2.Size = new System.Drawing.Size(150, 75);
-            this.compFixedUnit2.TabIndex = 4;
+            this.compFixedTankUnit.Location = new System.Drawing.Point(178, 63);
+            this.compFixedTankUnit.Name = "compFixedTankUnit";
+            this.compFixedTankUnit.Size = new System.Drawing.Size(150, 75);
+            this.compFixedTankUnit.TabIndex = 4;
             // 
-            // compFixedUnit3
+            // compFixedInfanUnit
             // 
-            this.compFixedUnit3.Location = new System.Drawing.Point(334, 63);
-            this.compFixedUnit3.Name = "compFixedUnit3";
-            this.compFixedUnit3.Size = new System.Drawing.Size(150, 75);
-            this.compFixedUnit3.TabIndex = 5;
+            this.compFixedInfanUnit.Location = new System.Drawing.Point(334, 63);
+            this.compFixedInfanUnit.Name = "compFixedInfanUnit";
+            this.compFixedInfanUnit.Size = new System.Drawing.Size(150, 75);
+            this.compFixedInfanUnit.TabIndex = 5;
             // 
             // lbEntry
             // 
@@ -105,7 +106,7 @@ namespace DeckMaker
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(216, 500);
+            this.button1.Location = new System.Drawing.Point(334, 601);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(371, 57);
             this.button1.TabIndex = 9;
@@ -125,9 +126,9 @@ namespace DeckMaker
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.rbNod);
+            this.groupBox1.Controls.Add(this.rbGDI);
+            this.groupBox1.Controls.Add(this.rbAll);
             this.groupBox1.Location = new System.Drawing.Point(530, 63);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 100);
@@ -135,55 +136,65 @@ namespace DeckMaker
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "진영";
             // 
-            // radioButton3
+            // rbNod
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 72);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(52, 19);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.Text = "NOD";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.rbNod.AutoSize = true;
+            this.rbNod.Location = new System.Drawing.Point(6, 72);
+            this.rbNod.Name = "rbNod";
+            this.rbNod.Size = new System.Drawing.Size(52, 19);
+            this.rbNod.TabIndex = 2;
+            this.rbNod.Text = "NOD";
+            this.rbNod.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rbGDI
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 47);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(45, 19);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.Text = "GDI";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rbGDI.AutoSize = true;
+            this.rbGDI.Location = new System.Drawing.Point(6, 47);
+            this.rbGDI.Name = "rbGDI";
+            this.rbGDI.Size = new System.Drawing.Size(45, 19);
+            this.rbGDI.TabIndex = 1;
+            this.rbGDI.Text = "GDI";
+            this.rbGDI.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // rbAll
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 22);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(77, 19);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "모두 가능";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbAll.AutoSize = true;
+            this.rbAll.Checked = true;
+            this.rbAll.Location = new System.Drawing.Point(6, 22);
+            this.rbAll.Name = "rbAll";
+            this.rbAll.Size = new System.Drawing.Size(77, 19);
+            this.rbAll.TabIndex = 0;
+            this.rbAll.TabStop = true;
+            this.rbAll.Text = "모두 가능";
+            this.rbAll.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(170, 15);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Build : 2021/10/24 , 몽키해드";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1022, 569);
+            this.ClientSize = new System.Drawing.Size(1022, 679);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbEntry);
             this.Controls.Add(this.lbEntry);
-            this.Controls.Add(this.compFixedUnit3);
-            this.Controls.Add(this.compFixedUnit2);
-            this.Controls.Add(this.compFixedUnit1);
+            this.Controls.Add(this.compFixedInfanUnit);
+            this.Controls.Add(this.compFixedTankUnit);
+            this.Controls.Add(this.compFixedAirUnit);
             this.Controls.Add(this.richTextBox1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "춫 라이벌 랜덤 덱 생성기";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -193,18 +204,19 @@ namespace DeckMaker
 
         #endregion
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private CompFixedUnit compFixedUnit1;
-        private CompFixedUnit compFixedUnit2;
-        private CompFixedUnit compFixedUnit3;
+        private CompFixedUnit compFixedAirUnit;
+        private CompFixedUnit compFixedTankUnit;
+        private CompFixedUnit compFixedInfanUnit;
         private System.Windows.Forms.Label lbEntry;
         private System.Windows.Forms.TextBox tbEntry;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rbNod;
+        private System.Windows.Forms.RadioButton rbGDI;
+        private System.Windows.Forms.RadioButton rbAll;
+        private System.Windows.Forms.Label label2;
     }
 }
 

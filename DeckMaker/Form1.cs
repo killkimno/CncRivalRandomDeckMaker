@@ -22,18 +22,14 @@ namespace DeckMaker
         private List<EntryData> _entryList = new List<EntryData>();
         private Dictionary<FactionType, Dictionary<UnitType, List<UnitData>>> _unitDic = new Dictionary<FactionType, Dictionary<UnitType, List<UnitData>>>();
 
-        private List<UnitData> _nodUnitDataList = new List<UnitData>();
-        private List<UnitData> _gdiUnitDataList = new List<UnitData>();
-
-        private List<UnitData> _nodCommanderList = new List<UnitData>();
-        private List<UnitData> _gdiCommanderList = new List<UnitData>();
+        
 
         public Form1()
         {
             InitializeComponent();
-            compFixedUnit1.Init(UnitType.Air);
-            compFixedUnit2.Init(UnitType.Factory);
-            compFixedUnit3.Init(UnitType.Barrack);
+            compFixedAirUnit.Init(UnitType.Air);
+            compFixedTankUnit.Init(UnitType.Factory);
+            compFixedInfanUnit.Init(UnitType.Barrack);
 
             InitUnit();
         }
@@ -64,14 +60,25 @@ namespace DeckMaker
                     List<ICell> cellList = curRow.Cells;
 
                     GetString(out var original, curRow, 0);
-                    GetString(out var faction, curRow, 1);
-                    GetString(out var unitType, curRow, 2);
+                    GetString(out var kr, curRow, 1);
+                    GetString(out var faction, curRow, 2);
+                    GetString(out var unitType, curRow, 3);
+
+                    GetString(out var antiTank, curRow, 4);
+                    GetString(out var antiInfan, curRow, 5);
+                    GetString(out var antiAir, curRow, 6);
+                    GetString(out var cost, curRow, 7);
 
                     UnitData data = new UnitData();
                     data.EnName = original;
+                    data.KrName = kr;
                     data.UnitType = Enum.Parse<UnitType>(unitType);
                     data.FactionType = Enum.Parse<FactionType>(faction);
 
+                    data.AntiAir = Convert.ToInt32(antiAir);
+                    data.AntiTank = Convert.ToInt32(antiTank);
+                    data.AntiInfan = Convert.ToInt32(antiInfan);
+                    data.Cost = Convert.ToInt32(cost);
 
                     _unitDic[data.FactionType][data.UnitType].Add(data);
 
@@ -102,6 +109,7 @@ namespace DeckMaker
 
         private void MakeDeck()
         {
+            richTextBox1.Clear();
             ParseEntry();
             foreach (var obj in _entryList)
             {
@@ -111,30 +119,156 @@ namespace DeckMaker
 
         private void MakeUserDeck(EntryData entry)
         {
-            //종족 등록
-
-            Array values = Enum.GetValues(typeof(FactionType));
             Random random = new Random();
-            FactionType faction = (FactionType)values.GetValue(random.Next(values.Length));
+            //종족 등록
+            FactionType faction = FactionType.GDI;
+            if (rbAll.Checked)
+            {
+                Array values = Enum.GetValues(typeof(FactionType));           
+                faction = (FactionType)values.GetValue(random.Next(values.Length));
+            }
+            else if(rbGDI.Checked)
+            {
+                faction = FactionType.GDI;
+            }
+            else if(rbNod.Checked)
+            {
+                faction = FactionType.NOD;
+            }
+          
+           
 
             //사령관
             int count = _unitDic[faction][UnitType.Commander].Count;
             UnitData commander = _unitDic[faction][UnitType.Commander][random.Next(count)];
 
             //유닛
-
             //일단 다 합친다
             List<UnitData> list = _unitDic[faction][UnitType.Air].Concat(_unitDic[faction][UnitType.Tech].Concat(_unitDic[faction][UnitType.Barrack].
                 Concat(_unitDic[faction][UnitType.Factory]))).ToList();
 
+            //고정 유닛 안티 에어
+            List<UnitData> fixedAntiList =
+                list.Where(data => data.Cost <= 60 && (data.AntiAir >= 2   || data.AntiInfan >= 2 || data.AntiTank >= 2) ).ToList();
 
-            for(int i = 0; i < 6; i++)
+            List<UnitData> selectList = new List<UnitData>();
+
+            int airCount = compFixedAirUnit.Count;
+            int tankCount = compFixedTankUnit.Count;
+            int infanCount = compFixedInfanUnit.Count;
+
+            int max = 6;
+
+
+            //에어
+            List<UnitData> antiAirList = fixedAntiList.Where(data => data.AntiAir >= 2).ToList();
+            for (int i = 0; i < airCount && selectList.Count < max ; i++)
+            {
+                int pickIndex = random.Next(antiAirList.Count);
+                UnitData unit = antiAirList[pickIndex];
+                selectList.Add(unit);
+
+                if(unit.AntiInfan >=2)
+                {
+                    infanCount--;
+                }
+
+                if (unit.AntiTank >= 2)
+                {
+                    tankCount--;
+                }
+
+                list.Remove(unit);
+                fixedAntiList.Remove(unit);
+                antiAirList.RemoveAt(pickIndex);
+
+                if(antiAirList.Count == 0)
+                {
+                    break;
+                }    
+            }
+
+            //탱크
+            List<UnitData> antiTankList = fixedAntiList.Where(data => data.AntiTank >= 2).ToList();
+            for (int i = 0; i < tankCount && selectList.Count < max; i++)
+            {
+                int pickIndex = random.Next(antiTankList.Count);
+                UnitData unit = antiTankList[pickIndex];
+                selectList.Add(unit);
+
+                if (unit.AntiInfan >= 2)
+                {
+                    infanCount--;
+                }
+
+                if (unit.AntiAir >= 2)
+                {
+                    airCount--;
+                }
+
+                list.Remove(unit);
+                fixedAntiList.Remove(unit);
+                antiTankList.RemoveAt(pickIndex);
+
+                if (antiTankList.Count == 0)
+                {
+                    break;
+                }
+            }
+
+            //보병
+            List<UnitData> antiInfanList = fixedAntiList.Where(data => data.AntiInfan >= 2).ToList();
+            for (int i = 0; i < infanCount && selectList.Count < max ; i++)
+            {
+                int pickIndex = random.Next(antiInfanList.Count);
+                UnitData unit = antiInfanList[pickIndex];
+                selectList.Add(unit);
+
+                if (unit.AntiTank >= 2)
+                {
+                    tankCount--;
+                }
+
+                if (unit.AntiAir >= 2)
+                {
+                    airCount--;
+                }
+
+                list.Remove(unit);
+                fixedAntiList.Remove(unit);
+                antiInfanList.RemoveAt(pickIndex);
+
+
+                if (antiInfanList.Count == 0)
+                {
+                    break;
+                }
+            }
+
+            int remain = 6- selectList.Count;
+            int techCount = 0;
+
+            for (int i = 0; i < remain; i++)
             {
                 int pickIndex = random.Next(list.Count);
                 UnitData unit = list[pickIndex];
+
+                if(unit.UnitType == UnitType.Tech)
+                {
+                    techCount++;
+
+                    if(techCount >= 3)
+                    {
+                        //3개가 넘으면 테크 유닛을 모두 없앤다.
+                        list.RemoveAll(data => data.UnitType == UnitType.Tech);
+                    }
+                }
+
                 entry.UnitList.Add(unit);
-                list.RemoveAt(pickIndex);
+                list.Remove(unit);
             }
+
+            entry.UnitList = entry.UnitList.Concat(selectList).ToList();
 
             entry.AppendText(richTextBox1);
         }     
@@ -148,6 +282,10 @@ namespace DeckMaker
             if (cell != null && cell.CellType == CellType.String)
             {
                 value = cell.StringCellValue;
+            }
+            else if (cell != null && cell.CellType == CellType.Numeric)
+            {
+                value = cell.NumericCellValue.ToString();
             }
         }
 
@@ -209,11 +347,12 @@ namespace DeckMaker
 
         public static void AppendText(this EntryData entry, RichTextBox box)
         {
+            entry.UnitList.Sort(new SortByTpye());
             box.AppendText(entry.Name + " : ", Color.Black );
             
             foreach(var obj in entry.UnitList)
             {
-                box.AppendText($" {obj.EnName} /", obj.GetTextClor());
+                box.AppendText($" {obj.KrName} /", obj.GetTextClor());
             }
             box.AppendText(System.Environment.NewLine);
             //box.Text += System.Environment.NewLine;
