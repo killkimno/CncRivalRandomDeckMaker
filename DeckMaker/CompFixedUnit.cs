@@ -14,7 +14,7 @@ namespace DeckMaker
     {
         public UnitType UnitType;
         public int Count { get { return _count; } }
-        private int _count;
+        private int _count = 1;
         public CompFixedUnit()
         {
             InitializeComponent();
@@ -38,6 +38,8 @@ namespace DeckMaker
                     lbUnitType.Text = "고정 보병 유닛";
                     break;
             }
+
+            tbValue.Text = "1";
         }
 
         private void tbValue_TextChanged(object sender, EventArgs e)

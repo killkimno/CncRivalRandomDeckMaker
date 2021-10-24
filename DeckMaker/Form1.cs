@@ -97,7 +97,7 @@ namespace DeckMaker
             _entryList.Clear();
             if (!string.IsNullOrEmpty(tbEntry.Text))
             {
-                string result = tbEntry.Text.Replace(System.Environment.NewLine, "");
+                string result = tbEntry.Text.Replace(System.Environment.NewLine, "").Replace(" ", "");
                 string[] entrys = result.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
                 foreach(var obj in entrys)
