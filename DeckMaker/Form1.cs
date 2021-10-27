@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -31,6 +32,11 @@ namespace DeckMaker
             compFixedTankUnit.Init(UnitType.Factory);
             compFixedInfanUnit.Init(UnitType.Barrack);
 
+            linkLabel1.Links.Clear();
+            if (!string.IsNullOrEmpty(linkLabel1.Text))
+            {
+                linkLabel1.Links.Add(0, linkLabel1.Text.Length, linkLabel1.Text);
+            }
             InitUnit();
         }
 
@@ -333,10 +339,15 @@ namespace DeckMaker
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+          
+            //System.Diagnostics.Process.Start(e.Link.LinkData as string);
             try
             {
 
-                System.Diagnostics.Process.Start(e.Link.LinkData as string);
+                ProcessStartInfo sInfo = new ProcessStartInfo(e.Link.LinkData as string);
+                sInfo.UseShellExecute = true;
+                Process.Start(sInfo);
+
             }
             catch { }
         }

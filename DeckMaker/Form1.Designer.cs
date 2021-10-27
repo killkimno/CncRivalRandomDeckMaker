@@ -176,7 +176,7 @@ namespace DeckMaker
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(170, 15);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Build : 2021/10/24 , 몽키해드";
+            this.label2.Text = "Build : 2021/10/27 , 몽키해드";
             // 
             // Form1
             // 
